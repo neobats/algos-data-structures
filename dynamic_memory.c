@@ -4,6 +4,9 @@
 // #include <stdlib.h> 
 // #include <limits.h> 
 // #include <stdio.h>
+// #include <time.h>
+#define COUNT 100
+#define CHARS 1000
 
 struct LLnode {
   char *str;
@@ -61,7 +64,15 @@ int main() {
   head = (struct LLnode*)malloc(sizeof(struct LLnode));
   tail = head;
 
+  // srand(time(NULL));
+  srand(1);
+  int newChar = (rand() % 26) + 65;
+
+  for (int i = 0; i < COUNT; i++) {
+    
+  }
   
+
 
   return 0;
 }
