@@ -5,8 +5,8 @@
 // #include <limits.h> 
 // #include <stdio.h>
 // #include <time.h>
-#define COUNT 100
-#define CHARS 1000
+#define COUNT 10
+#define CHARS 100
 
 struct LLnode {
   char *str;
