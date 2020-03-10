@@ -66,10 +66,38 @@ int main() {
 
   // srand(time(NULL));
   srand(1);
-  int newChar = (rand() % 26) + 65;
+  // int newChar = (rand() % 26) + 65;
+
+  // pre-fill queue
+  for (int i = 0; i < 10; i++) {
+    // create string
+    char* str;
+    str = (char*)malloc(sizeof(char[CHARS]));
+    for (int j = 0; j < CHARS; j++) {
+      char data = (rand() %26) + 65;
+      str[j] = data;
+      free(data);
+    }
+    enqueue(&str, &head, &tail);
+    free(&str);
+    free(str);
+  }
 
   for (int i = 0; i < COUNT; i++) {
-    
+    // create string
+    char* str;
+    str = (char*)malloc(sizeof(char[CHARS]));
+
+    for (int j = 0; j < CHARS; j++) {
+      char data = (rand() %26) + 65;
+      str[j] = data;
+      free(data);
+    }
+    enqueue(&str, &head, &tail);
+    free(&str);
+    str = dequeue(&head, &tail);
+    free(&str);
+    free(str);
   }
   
 
