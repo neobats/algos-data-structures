@@ -2,7 +2,6 @@
 // this is a program to make a queue that dynamically allocates and handles memory.
 
 // #include <stdlib.h> 
-// #include <limits.h> 
 // #include <stdio.h>
 // #include <time.h>
 #define COUNT 10
@@ -47,7 +46,7 @@ char* dequeue (struct LLnode **hd, struct LLnode **tl) {
     return data;
   } else if ((*hd)) { // one thing
     struct LLnode *temp;
-    temp = &hd;
+    temp = *hd;
     char* data = (*temp).str;
     (*hd) = (*temp).next;
     free(temp); // remove the current front of queue
@@ -60,6 +59,7 @@ char* dequeue (struct LLnode **hd, struct LLnode **tl) {
 int main() {
   struct LLnode *head;
   struct LLnode *tail;
+  int enq = 0;
 
   head = (struct LLnode*)malloc(sizeof(struct LLnode));
   tail = head;
@@ -76,13 +76,12 @@ int main() {
     for (int j = 0; j < CHARS; j++) {
       char data = (rand() %26) + 65;
       str[j] = data;
-      free(data);
     }
-    enqueue(&str, &head, &tail);
-    free(&str);
+    enqueue(str, &head, &tail);
     free(str);
+    enq++;
   }
-
+  int dequeues = 0;
   for (int i = 0; i < COUNT; i++) {
     // create string
     char* str;
@@ -91,16 +90,27 @@ int main() {
     for (int j = 0; j < CHARS; j++) {
       char data = (rand() %26) + 65;
       str[j] = data;
-      free(data);
     }
-    enqueue(&str, &head, &tail);
-    free(&str);
-    str = dequeue(&head, &tail);
-    free(&str);
-    free(str);
+    enqueue(str, &head, &tail);
+    enq++;
+    char* dump = dequeue(&head, &tail);
+    if (dump) {
+      dequeues++;
+      free(dump);
+    }
   }
-  
+  printf("enq %d\n", enq);
+  printf("%d ", dequeues);
+  // empty the queue and attempt a dequeue twice
+  for (int i = 0; i < 7; i++) {
+    char* dump = dequeue(&head, &tail);
+    if (dump) {
+      dequeues++;
+      printf("%d ", dequeues);
+      free(dump);
+    }
+  }
 
-
+  printf("%d ", dequeues);
   return 0;
 }
